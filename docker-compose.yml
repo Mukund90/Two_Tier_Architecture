@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    container_name: mukundmongo
+    ports: 
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    image: "mudocker67/httpserver:version-01"
+    container_name: httpserver
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URL: "mongodb://mukundmongo:27017/user_data"  # Corrected line
+  
+
+volumes:
+  mongodb_data:
+
